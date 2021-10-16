@@ -1,0 +1,60 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.31727.386
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{43BD8168-8700-4E76-899E-27EC221B2DB2}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Modules", "Modules", "{41C5B81A-94B9-488C-9958-3E93040B171B}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Services", "Services", "{5A301F37-4230-4E60-9BD2-02D8FCA513E9}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Eppendorf_FSC", "Eppendorf_FSC\Eppendorf_FSC\Eppendorf_FSC.csproj", "{B596D169-0064-428E-BCEE-ADF86B50C2A9}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Eppendorf_FSC.Core", "Eppendorf_FSC\Eppendorf_FSC.Core\Eppendorf_FSC.Core.csproj", "{DF4BF75E-347F-4A4F-9469-835F3F90CBA0}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Eppendorf_FSC.Modules.DevicesModule", "Eppendorf_FSC\Modules\Eppendorf_FSC.Modules.DevicesModule\Eppendorf_FSC.Modules.DevicesModule.csproj", "{0B7C2155-04D4-4D78-B0CA-D32838656973}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Eppendorf_FSC.Modules.DevicesModule.Tests", "Eppendorf_FSC\Tests\Eppendorf_FSC.Modules.DevicesModule.Tests\Eppendorf_FSC.Modules.DevicesModule.Tests.csproj", "{FE73F0F5-0B9A-4A9A-AE77-DBD3D8DD974D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Eppendorf_FSC.Services.DeviceService", "Eppendorf_FSC\Services\Eppendorf_FSC.Services.DeviceService\Eppendorf_FSC.Services.DeviceService.csproj", "{AAE7EBE0-D5A8-47CC-AD36-5D5AB874C028}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{B596D169-0064-428E-BCEE-ADF86B50C2A9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B596D169-0064-428E-BCEE-ADF86B50C2A9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B596D169-0064-428E-BCEE-ADF86B50C2A9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B596D169-0064-428E-BCEE-ADF86B50C2A9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DF4BF75E-347F-4A4F-9469-835F3F90CBA0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DF4BF75E-347F-4A4F-9469-835F3F90CBA0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DF4BF75E-347F-4A4F-9469-835F3F90CBA0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DF4BF75E-347F-4A4F-9469-835F3F90CBA0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0B7C2155-04D4-4D78-B0CA-D32838656973}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0B7C2155-04D4-4D78-B0CA-D32838656973}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0B7C2155-04D4-4D78-B0CA-D32838656973}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0B7C2155-04D4-4D78-B0CA-D32838656973}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FE73F0F5-0B9A-4A9A-AE77-DBD3D8DD974D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FE73F0F5-0B9A-4A9A-AE77-DBD3D8DD974D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FE73F0F5-0B9A-4A9A-AE77-DBD3D8DD974D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FE73F0F5-0B9A-4A9A-AE77-DBD3D8DD974D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AAE7EBE0-D5A8-47CC-AD36-5D5AB874C028}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AAE7EBE0-D5A8-47CC-AD36-5D5AB874C028}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AAE7EBE0-D5A8-47CC-AD36-5D5AB874C028}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AAE7EBE0-D5A8-47CC-AD36-5D5AB874C028}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{0B7C2155-04D4-4D78-B0CA-D32838656973} = {41C5B81A-94B9-488C-9958-3E93040B171B}
+		{FE73F0F5-0B9A-4A9A-AE77-DBD3D8DD974D} = {43BD8168-8700-4E76-899E-27EC221B2DB2}
+		{AAE7EBE0-D5A8-47CC-AD36-5D5AB874C028} = {5A301F37-4230-4E60-9BD2-02D8FCA513E9}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {DFFCC37C-299A-4A4C-AB71-3297B83D5C80}
+	EndGlobalSection
+EndGlobal
