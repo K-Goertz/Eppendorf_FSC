@@ -20,14 +20,12 @@ namespace Eppendorf_FSC.Modules.DevicesModule.ViewModels
     {
         private IDevicesRepository devicesRepository;
 
-        private ObservableCollection<Device> devices = new ObservableCollection<Device>();
 
-        public ObservableCollection<Device> Devices
-        {
-            get { return devices; }
-        }
+        public ObservableCollection<Device> Devices { get; } = new ObservableCollection<Device>();
         public ICollectionView DevicesCollectionView { get; private set; }
 
+        
+        public ReadOnlyCollection<DeviceHealth> DeviceHealthSelectables { get; } = new ReadOnlyCollection<DeviceHealth>(Enum.GetValues(typeof(DeviceHealth)).Cast<DeviceHealth>().ToList());//Collects possible device health values
 
         private DelegateCommand<Device> deleteDeviceCommand;
         public ICommand DeleteDeviceCommand
@@ -35,7 +33,10 @@ namespace Eppendorf_FSC.Modules.DevicesModule.ViewModels
             get
             {
                 if (deleteDeviceCommand == null)
+                {
+                    //TODO: add can excecute ((device)=>device != null)
                     deleteDeviceCommand = new DelegateCommand<Device>(DeleteDevice);
+                }
                 return deleteDeviceCommand;
             }
         }
@@ -66,8 +67,10 @@ namespace Eppendorf_FSC.Modules.DevicesModule.ViewModels
         public DevicesViewModel(IRegionManager regionManager, IDevicesRepository devicesRepository) : base(regionManager)
         {
             this.devicesRepository = devicesRepository;
-            devices.AddRange(this.devicesRepository.GetDevices());
-            DevicesCollectionView = new ListCollectionView(devices);
+            Devices.AddRange(this.devicesRepository.GetDevices());
+            DevicesCollectionView = new ListCollectionView(Devices);
+
+
         }
 
 
@@ -78,15 +81,21 @@ namespace Eppendorf_FSC.Modules.DevicesModule.ViewModels
 
         private void DeleteDevice(Device device) 
         {
-            Devices.Remove(device);
+            if (device == null)
+                return;
+
+            if(Devices.Contains(device))
+                Devices.Remove(device);
             devicesRepository.DeleteDevice(device.Id);
         }
 
         private void AddDevice(Device device)
         {
-            //TODO: I pick the max id and add 1 this could be not true for the database (should be clear by convention).
+            if (device == null)
+                return;
 
-            var lastMaxDevice = devices.Max(dev => dev.Id);
+            //TODO: I pick the max id and add 1 this could be not true for the database (should be clear by convention).
+            var lastMaxDevice = Devices.Max(dev => dev.Id);
             lastMaxDevice += 1;
             device.Id = lastMaxDevice;
             devicesRepository.CreateDevice(device);
@@ -98,6 +107,8 @@ namespace Eppendorf_FSC.Modules.DevicesModule.ViewModels
 
         private void UpdateDevice(Device device)
         {
+            if (device == null)
+                return;
             devicesRepository.UpdateDevice(device);
         }
 

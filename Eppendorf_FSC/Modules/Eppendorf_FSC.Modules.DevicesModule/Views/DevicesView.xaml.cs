@@ -26,6 +26,5 @@ namespace Eppendorf_FSC.Modules.DevicesModule.Views
             InitializeComponent();
         }
 
-
     }
 }
