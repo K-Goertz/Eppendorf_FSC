@@ -8,64 +8,70 @@ using System.Text;
 using System.IO;
 using AutoMapper;
 using Eppendorf_FSC.Core.Dto;
+using JsonFlatFileDataStore;
+using System.Diagnostics;
 
 namespace Eppendorf_FSC.Services.DeviceService
 {
     public class FileDeviceRepositoryService : IDevicesRepository
     {
-        //TODO: change with real file
-        private List<Device> inMemoryDeviceList = new List<Device>();
+        private const string datastoreFileName = "Datastore.json";
+        private DataStore deviceDataStore;
+        private IDocumentCollection<Device> deviceCollection;
         private IMapper mapper;
 
         public FileDeviceRepositoryService(IMapper mapper)
         {
-            //TODO: change this to only once and than save to other file
-            //Seed on creation to test
             this.mapper = mapper;
-            AddSeedData();
+
+            //Add datastorefile and seed if opened first time. If datafile already exists - only load
+            if (!File.Exists(datastoreFileName))
+            {
+                deviceDataStore = new DataStore(datastoreFileName);
+                deviceCollection = deviceDataStore.GetCollection<Device>();
+                AddSeedData();
+            } else
+            { 
+                deviceDataStore = new DataStore(datastoreFileName);
+                deviceCollection = deviceDataStore.GetCollection<Device>();
+            }
+
         }
 
         public void CreateDevice(Device device)
         {
+            
             //Gate for id already used
-            if (inMemoryDeviceList.Any(device => device.Id == device.Id))
+            if (deviceCollection.AsQueryable().Any(storedDevice => storedDevice.Id == device.Id))
             {
                 //TODO: Throw;
                 return;
             }
             else
             {
-                inMemoryDeviceList.Add(device);
+                //Seeding is very slow if not done async. Will be okay for now
+                deviceCollection.InsertOneAsync(device).ConfigureAwait(false);
             }
         }
 
         public void DeleteDevice(int id)
         {
-            var foundDevice = inMemoryDeviceList.FirstOrDefault(device => device.Id == id);
-            if (foundDevice != default)
+            if (deviceCollection.AsQueryable().Any(storedDevice => storedDevice.Id == id))
             {
-                inMemoryDeviceList.Remove(foundDevice);
+                deviceCollection.DeleteOne(id);
             }
         }
 
         public IEnumerable<Device> GetDevices()
         {
-            //Protect in memory repo 
-            //TODO: change this for real repository
-            return inMemoryDeviceList.Select(device=>(Device)device.Clone()).ToList();
+            return deviceCollection.AsQueryable().Select(device=>(Device)device.Clone()).ToList();
         }
 
         public void UpdateDevice(Device device)
         {
-            var foundDevice = inMemoryDeviceList.FirstOrDefault(device => device.Id == device.Id);
-            if (foundDevice != default)
+            if (deviceCollection.AsQueryable().Any(storedDevice => storedDevice.Id == device.Id))
             {
-                foundDevice.Id = device.Id;
-                foundDevice.Location = device.Location;
-                foundDevice.Type = device.Type;
-                foundDevice.LastUsed = device.LastUsed;
-                foundDevice.Price = device.Price;
-                foundDevice.Color = device.Color;
+                deviceCollection.UpdateOne(device.Id, device);
             }
             else
             {
@@ -80,7 +86,12 @@ namespace Eppendorf_FSC.Services.DeviceService
             var seedAsText = File.ReadAllText(@"Seed/data.json");
             var seedData = JsonSerializer.Deserialize<Core.Dto.FileSeedDevice[]>(seedAsText);
             var deviceMap = mapper.Map<FileSeedDevice[],Device[]>(seedData);
-            inMemoryDeviceList.AddRange(deviceMap);
+            foreach (var deviceMapped in deviceMap)
+            {
+                CreateDevice(deviceMapped);
+            }
+
+
         }
 
     }

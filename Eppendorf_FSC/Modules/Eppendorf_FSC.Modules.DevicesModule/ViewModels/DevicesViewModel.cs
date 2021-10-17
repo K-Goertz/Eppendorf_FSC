@@ -76,7 +76,6 @@ namespace Eppendorf_FSC.Modules.DevicesModule.ViewModels
 
         public override void OnNavigatedTo(NavigationContext navigationContext)
         {
-            //TODO: do something or remove
         }
 
         private void DeleteDevice(Device device) 
@@ -98,6 +97,7 @@ namespace Eppendorf_FSC.Modules.DevicesModule.ViewModels
             var lastMaxDevice = Devices.Max(dev => dev.Id);
             lastMaxDevice += 1;
             device.Id = lastMaxDevice;
+            device.LastUsed = DateTime.Now;
             devicesRepository.CreateDevice(device);
 
             //The new Device could already be added (datagrid ..) so do not add if device is already in the list
