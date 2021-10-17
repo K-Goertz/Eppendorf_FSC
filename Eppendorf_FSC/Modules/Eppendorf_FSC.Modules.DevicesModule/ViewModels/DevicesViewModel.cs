@@ -23,18 +23,8 @@ namespace Eppendorf_FSC.Modules.DevicesModule.ViewModels
             get { return devices; }
         }
 
-        private string message;
-        public string Message
-        {
-            get { return message; }
-            set { 
-                SetProperty(ref message, value); 
-            }
-        }
-
         public DevicesViewModel(IRegionManager regionManager, IDevicesRepository devicesRepository) : base(regionManager)
         {
-            Message = "Devices view";
             this.devicesRepository = devicesRepository;
             devices.AddRange(this.devicesRepository.GetDevices());
         }

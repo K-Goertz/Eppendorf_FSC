@@ -8,6 +8,10 @@ using System.Reflection;
 using System;
 using Eppendorf_FSC.Core.Interfaces;
 using Eppendorf_FSC.Services.DeviceService;
+using AutoMapper;
+using Eppendorf_FSC.Core.Models;
+using Eppendorf_FSC.Core.Dto;
+using Eppendorf_FSC.Mapping;
 
 namespace Eppendorf_FSC
 {
@@ -26,6 +30,7 @@ namespace Eppendorf_FSC
         {
             //Add services here
             containerRegistry.RegisterSingleton<IDevicesRepository, FileDeviceRepositoryService>();
+            containerRegistry.RegisterSingleton(typeof(IMapper),CreateMapper);
         }
 
         protected override void ConfigureModuleCatalog(IModuleCatalog moduleCatalog)
@@ -46,6 +51,14 @@ namespace Eppendorf_FSC
                 var viewModelName = $"{viewName}Model, {viewAssemblyName}";
                 return Type.GetType(viewModelName);
             });
+        }
+
+        private IMapper CreateMapper() 
+        {
+            var config = new MapperConfiguration(cfg => {
+                cfg.AddProfile<GeneralMapProfile>();
+            });
+            return new Mapper(config);
         }
 
 

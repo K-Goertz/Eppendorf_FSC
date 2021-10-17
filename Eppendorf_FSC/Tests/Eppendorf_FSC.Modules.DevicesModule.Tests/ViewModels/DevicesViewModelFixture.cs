@@ -25,13 +25,6 @@ namespace Eppendorf_FSC.Modules.DevicesModule.Tests.ViewModels
         }
 
         [Fact]
-        public void MessageINotifyPropertyChangedCalled()
-        {
-            var vm = new DevicesViewModel(regionManagerMock.Object, deviceRepositoryMock.Object);
-            Assert.PropertyChanged(vm, nameof(vm.Message), () => vm.Message = "Changed");
-        }
-
-        [Fact]
         public void GetDeviceDataOnStartup()
         {
             var vm = new DevicesViewModel(regionManagerMock.Object,deviceRepositoryMock.Object);

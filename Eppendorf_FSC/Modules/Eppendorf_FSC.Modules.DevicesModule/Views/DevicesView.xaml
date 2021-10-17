@@ -8,9 +8,30 @@
              d:DesignHeight="300" d:DesignWidth="300"
              xmlns:prism="http://prismlibrary.com/"
              prism:ViewModelLocator.AutoWireViewModel="True" >
+    <UserControl.Resources>
+        <Style TargetType="ListViewItem">
+            <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+        </Style>
+    </UserControl.Resources>
     <Grid>
-        <TextBlock Text="{Binding Message}"
-                       HorizontalAlignment="Center"
-                       VerticalAlignment="Center" />
+        <ListView ItemsSource="{Binding Devices}">
+            <ListView.View>
+                <GridView AllowsColumnReorder="true" ColumnHeaderToolTip="Employee Information">
+                    <GridViewColumn DisplayMemberBinding="{Binding Path=Id}" Header="Id" Width="Auto"/>
+                    <GridViewColumn DisplayMemberBinding="{Binding Path=Location}" Header="Location" Width="Auto"/>
+                    <GridViewColumn DisplayMemberBinding="{Binding Path=Type}" Header="Type" Width="Auto"/>
+                    <GridViewColumn DisplayMemberBinding="{Binding Path=DeviceHealth}" Header="Device Health" Width="Auto"/>
+                    <GridViewColumn DisplayMemberBinding="{Binding Path=LastUsed,StringFormat=dd.MM.yyyy}" Header="Last Used" Width="Auto"/>
+                    <GridViewColumn Header="Price" Width="Auto">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding Path=Price,StringFormat=0.00}" TextAlignment="Right" />
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                    <GridViewColumn DisplayMemberBinding="{Binding Path=Color}" Header="Color" Width="Auto"/>
+                </GridView>
+            </ListView.View>
+        </ListView>
     </Grid>
 </UserControl>

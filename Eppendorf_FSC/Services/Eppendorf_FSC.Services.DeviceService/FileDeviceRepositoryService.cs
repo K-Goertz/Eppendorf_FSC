@@ -5,6 +5,8 @@ using System.Text.Json.Serialization;
 using System.Collections.Generic;
 using System.Text;
 using System.IO;
+using AutoMapper;
+using Eppendorf_FSC.Core.Dto;
 
 namespace Eppendorf_FSC.Services.DeviceService
 {
@@ -12,33 +14,31 @@ namespace Eppendorf_FSC.Services.DeviceService
     {
         //TODO: change with real file
         private List<Device> inMemoryDeviceList = new List<Device>();
+        private IMapper mapper;
 
-        public FileDeviceRepositoryService()
+        public FileDeviceRepositoryService(IMapper mapper)
         {
             //TODO: change this to only once and than save to other file
             //Seed on creation to test
+            this.mapper = mapper;
             AddSeedData();
         }
 
         public void CreateDevice(Device device)
         {
-            //throw new NotImplementedException();
         }
 
         public void DeleteDevice(int id)
         {
-            //throw new NotImplementedException();
         }
 
         public IEnumerable<Device> GetDevices()
         {
-            //throw new NotImplementedException();
             return inMemoryDeviceList;
         }
 
         public void UpdateDevice(Device device)
         {
-            //throw new NotImplementedException();
         }
 
 
@@ -46,6 +46,8 @@ namespace Eppendorf_FSC.Services.DeviceService
         {
             var seedAsText = File.ReadAllText(@"Seed/data.json");
             var seedData = JsonSerializer.Deserialize<Core.Dto.FileSeedDevice[]>(seedAsText);
+            var deviceMap = mapper.Map<FileSeedDevice[],Device[]>(seedData);
+            inMemoryDeviceList.AddRange(deviceMap);
         }
 
     }
