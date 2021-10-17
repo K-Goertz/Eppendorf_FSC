@@ -6,6 +6,8 @@ using System.Windows;
 using Prism.Mvvm;
 using System.Reflection;
 using System;
+using Eppendorf_FSC.Core.Interfaces;
+using Eppendorf_FSC.Services.DeviceService;
 
 namespace Eppendorf_FSC
 {
@@ -22,11 +24,8 @@ namespace Eppendorf_FSC
 
         protected override void RegisterTypes(IContainerRegistry containerRegistry)
         {
-            //TODO: remove this
-            //containerRegistry.RegisterSingleton<IMessageService, MessageService>();
             //Add services here
-
-
+            containerRegistry.RegisterSingleton<IDevicesRepository, FileDeviceRepositoryService>();
         }
 
         protected override void ConfigureModuleCatalog(IModuleCatalog moduleCatalog)

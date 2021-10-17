@@ -12,5 +12,6 @@
   <ItemGroup>
     <ProjectReference Include="..\Eppendorf_FSC.Core\Eppendorf_FSC.Core.csproj" />
     <ProjectReference Include="..\Modules\Eppendorf_FSC.Modules.DevicesModule\Eppendorf_FSC.Modules.DevicesModule.csproj" />
+    <ProjectReference Include="..\Services\Eppendorf_FSC.Services.DeviceService\Eppendorf_FSC.Services.DeviceService.csproj" />
   </ItemGroup>
 </Project>

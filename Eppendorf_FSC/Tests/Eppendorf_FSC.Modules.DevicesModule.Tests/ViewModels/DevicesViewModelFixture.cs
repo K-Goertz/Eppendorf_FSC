@@ -1,38 +1,44 @@
-﻿using Eppendorf_FSC.Modules.DevicesModule.ViewModels;
+﻿using Eppendorf_FSC.Core.Interfaces;
+using Eppendorf_FSC.Modules.DevicesModule.ViewModels;
+using System.Collections.Generic;
 using Moq;
 using Prism.Regions;
 using Xunit;
+using System.Linq;
+using Eppendorf_FSC.Core.Models;
 
 namespace Eppendorf_FSC.Modules.DevicesModule.Tests.ViewModels
 {
     public class DevicesViewModelFixture
     {
-        Mock<IRegionManager> _regionManagerMock;
+
+        private List<Device> testDevices = new List<Device>();
         const string MessageServiceDefaultMessage = "Some Value";
+        Mock<IRegionManager> regionManagerMock;
+        Mock<IDevicesRepository> deviceRepositoryMock; 
 
         public DevicesViewModelFixture()
         {
-            //TODO: remove line
-            //messageService.Setup(x => x.GetMessage()).Returns(MessageServiceDefaultMessage);
-            _regionManagerMock = new Mock<IRegionManager>();
+            regionManagerMock = new Mock<IRegionManager>();
+            deviceRepositoryMock = new Mock<IDevicesRepository>();
+            deviceRepositoryMock.Setup<IEnumerable<Device>>(x => x.GetDevices()).Returns(testDevices);
         }
-
-        //TODO: remove 
-        //[Fact]
-        //public void MessagePropertyValueUpdated()
-        //{
-        //    var vm = new DevicesViewModel(_regionManagerMock.Object);
-
-        //    //_messageServiceMock.Verify(x => x.GetMessage(), Times.Once);
-
-        //    Assert.Equal(MessageServiceDefaultMessage, vm.Message);
-        //}
 
         [Fact]
         public void MessageINotifyPropertyChangedCalled()
         {
-            var vm = new DevicesViewModel(_regionManagerMock.Object);
+            var vm = new DevicesViewModel(regionManagerMock.Object, deviceRepositoryMock.Object);
             Assert.PropertyChanged(vm, nameof(vm.Message), () => vm.Message = "Changed");
         }
+
+        [Fact]
+        public void GetDeviceDataOnStartup()
+        {
+            var vm = new DevicesViewModel(regionManagerMock.Object,deviceRepositoryMock.Object);
+            deviceRepositoryMock.Verify(x => x.GetDevices(), Times.Once);
+            Assert.Equal(testDevices.Count(), vm.Devices.Count());
+        }
+
+
     }
 }
