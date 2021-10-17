@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Eppendorf_FSC.Core.Models
 {
-    public class Device
+    public class Device : ICloneable
     {
         public int Id { get; set; }
         public string Location { get; set; }
@@ -13,5 +13,10 @@ namespace Eppendorf_FSC.Core.Models
         public DateTime LastUsed { get; set; }
         public double Price { get; set; }
         public string Color { get; set; }
+
+        public object Clone()
+        {
+            return new Device() { Id=Id,Location = Location,Type=Type,DeviceHealth=DeviceHealth,LastUsed=LastUsed,Price=Price,Color=Color};
+        }
     }
 }

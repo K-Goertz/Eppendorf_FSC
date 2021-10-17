@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Eppendorf_FSC.Core.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -24,5 +25,7 @@ namespace Eppendorf_FSC.Modules.DevicesModule.Views
         {
             InitializeComponent();
         }
+
+
     }
 }

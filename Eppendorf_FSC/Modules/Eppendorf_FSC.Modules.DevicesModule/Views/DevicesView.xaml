@@ -6,6 +6,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300"
+             xmlns:interaction="http://schemas.microsoft.com/xaml/behaviors"
              xmlns:prism="http://prismlibrary.com/"
              prism:ViewModelLocator.AutoWireViewModel="True" >
     <UserControl.Resources>
@@ -14,24 +15,50 @@
         </Style>
     </UserControl.Resources>
     <Grid>
-        <ListView ItemsSource="{Binding Devices}">
-            <ListView.View>
-                <GridView AllowsColumnReorder="true" ColumnHeaderToolTip="Employee Information">
-                    <GridViewColumn DisplayMemberBinding="{Binding Path=Id}" Header="Id" Width="Auto"/>
-                    <GridViewColumn DisplayMemberBinding="{Binding Path=Location}" Header="Location" Width="Auto"/>
-                    <GridViewColumn DisplayMemberBinding="{Binding Path=Type}" Header="Type" Width="Auto"/>
-                    <GridViewColumn DisplayMemberBinding="{Binding Path=DeviceHealth}" Header="Device Health" Width="Auto"/>
-                    <GridViewColumn DisplayMemberBinding="{Binding Path=LastUsed,StringFormat=dd.MM.yyyy}" Header="Last Used" Width="Auto"/>
-                    <GridViewColumn Header="Price" Width="Auto">
-                        <GridViewColumn.CellTemplate>
-                            <DataTemplate>
-                                <TextBlock Text="{Binding Path=Price,StringFormat=0.00}" TextAlignment="Right" />
-                            </DataTemplate>
-                        </GridViewColumn.CellTemplate>
-                    </GridViewColumn>
-                    <GridViewColumn DisplayMemberBinding="{Binding Path=Color}" Header="Color" Width="Auto"/>
-                </GridView>
-            </ListView.View>
-        </ListView>
+        <DataGrid x:Name="devicesDataGrid" AutoGenerateColumns="False" ItemsSource="{Binding DevicesCollectionView}"  CanUserAddRows="True" AlternatingRowBackground="LightGray" SelectionMode="Single" CanUserDeleteRows="False">
+            <interaction:Interaction.Triggers>
+                <interaction:EventTrigger EventName="RowEditEnding">
+                    <prism:InvokeCommandAction Command="{Binding UpdateDeviceCommand}" CommandParameter="{Binding MyParameter}" TriggerParameterPath="Row.Item">
+                    </prism:InvokeCommandAction>
+                </interaction:EventTrigger>
+                <interaction:EventTrigger EventName="InitializingNewItem">
+                    <prism:InvokeCommandAction Command="{Binding AddDeviceCommand}" CommandParameter="{Binding MyParameter}" TriggerParameterPath="NewItem">
+                    </prism:InvokeCommandAction>
+                </interaction:EventTrigger>
+            </interaction:Interaction.Triggers>
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Id" Binding="{Binding Path=Id}" Width="Auto" IsReadOnly="True"></DataGridTextColumn>
+                <DataGridTextColumn Header="Location" Binding="{Binding Path=Location}" Width="Auto"></DataGridTextColumn>
+                <DataGridTextColumn Header="Type" Binding="{Binding Path=Type}" Width="Auto"></DataGridTextColumn>
+                <DataGridTextColumn Header="Device Health" Binding="{Binding Path=DeviceHealth}" Width="Auto"></DataGridTextColumn>
+                <DataGridTemplateColumn Header="Last Used" Width="Auto">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding Path=LastUsed,StringFormat=dd.MM.yyyy}"></TextBlock>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                    <DataGridTemplateColumn.CellEditingTemplate>
+                        <DataTemplate>
+                            <DatePicker SelectedDate="{Binding Path=LastUsed}"></DatePicker>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellEditingTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTextColumn Header="Price" Binding="{Binding Path=Price,StringFormat=0.00}" Width="Auto" >
+                    <DataGridTextColumn.ElementStyle>
+                        <Style TargetType="TextBlock">
+                            <Setter Property="HorizontalAlignment" Value="Right" />
+                        </Style>
+                    </DataGridTextColumn.ElementStyle>
+                </DataGridTextColumn>
+                <DataGridTextColumn Header="Color" Binding="{Binding Path=Color}" Width="Auto"></DataGridTextColumn>
+                <DataGridTemplateColumn>
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Button Content="Delete" Command="{Binding Path=DataContext.DeleteDeviceCommand,RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}}" CommandParameter="{Binding}"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+            </DataGrid.Columns>
+        </DataGrid>
     </Grid>
 </UserControl>
