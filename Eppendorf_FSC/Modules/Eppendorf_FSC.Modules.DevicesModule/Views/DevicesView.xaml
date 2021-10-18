@@ -18,11 +18,11 @@
         <DataGrid x:Name="devicesDataGrid" AutoGenerateColumns="False" ItemsSource="{Binding DevicesCollectionView}"  CanUserAddRows="True" AlternatingRowBackground="LightGray" SelectionMode="Single" CanUserDeleteRows="False">
             <interaction:Interaction.Triggers>
                 <interaction:EventTrigger EventName="RowEditEnding">
-                    <prism:InvokeCommandAction Command="{Binding UpdateDeviceCommand}" CommandParameter="{Binding MyParameter}" TriggerParameterPath="Row.Item">
+                    <prism:InvokeCommandAction Command="{Binding UpdateDeviceCommand}"  TriggerParameterPath="Row.Item">
                     </prism:InvokeCommandAction>
                 </interaction:EventTrigger>
                 <interaction:EventTrigger EventName="InitializingNewItem">
-                    <prism:InvokeCommandAction Command="{Binding AddDeviceCommand}" CommandParameter="{Binding MyParameter}" TriggerParameterPath="NewItem">
+                    <prism:InvokeCommandAction Command="{Binding AddDeviceCommand}"  TriggerParameterPath="NewItem">
                     </prism:InvokeCommandAction>
                 </interaction:EventTrigger>
             </interaction:Interaction.Triggers>
