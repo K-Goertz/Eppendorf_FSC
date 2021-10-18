@@ -4,6 +4,9 @@ using System.Text;
 
 namespace Eppendorf_FSC.Core.Models
 {
+    /// <summary>
+    /// Device domain model
+    /// </summary>
     public class Device : ICloneable
     {
         public int Id { get; set; }

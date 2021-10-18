@@ -4,6 +4,9 @@ using System.Text;
 
 namespace Eppendorf_FSC.Core.Models
 {
+    /// <summary>
+    /// The current health state of the device 
+    /// </summary>
     public enum DeviceHealth
     {
         None = 0,

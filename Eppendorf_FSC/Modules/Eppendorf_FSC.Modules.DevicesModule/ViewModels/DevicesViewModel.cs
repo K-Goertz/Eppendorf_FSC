@@ -21,13 +21,25 @@ namespace Eppendorf_FSC.Modules.DevicesModule.ViewModels
         private IDevicesRepository devicesRepository;
 
 
+        /// <summary>
+        /// Devices
+        /// </summary>
         public ObservableCollection<Device> Devices { get; } = new ObservableCollection<Device>();
+        
+        /// <summary>
+        /// Collectionview of the devices
+        /// </summary>
         public ICollectionView DevicesCollectionView { get; private set; }
 
-        
-        public ReadOnlyCollection<DeviceHealth> DeviceHealthSelectables { get; } = new ReadOnlyCollection<DeviceHealth>(Enum.GetValues(typeof(DeviceHealth)).Cast<DeviceHealth>().ToList());//Collects possible device health values
+        /// <summary>
+        /// Possible device health states
+        /// </summary>
+        public ReadOnlyCollection<DeviceHealth> DeviceHealthSelectables { get; } = new ReadOnlyCollection<DeviceHealth>(Enum.GetValues(typeof(DeviceHealth)).Cast<DeviceHealth>().ToList());
 
         private DelegateCommand<Device> deleteDeviceCommand;
+        /// <summary>
+        /// Deletes given device (parameter: device)
+        /// </summary>
         public ICommand DeleteDeviceCommand
         {
             get
@@ -42,6 +54,9 @@ namespace Eppendorf_FSC.Modules.DevicesModule.ViewModels
         }
 
         private DelegateCommand<Device> addDeviceCommand;
+        /// <summary>
+        /// Adds given device, overwrites device id  (parameter: device)
+        /// </summary>
         public ICommand AddDeviceCommand
         {
             get
@@ -53,6 +68,10 @@ namespace Eppendorf_FSC.Modules.DevicesModule.ViewModels
         }
 
         private DelegateCommand<Device> updateDeviceCommand;
+
+        /// <summary>
+        /// Updates given device (parameter: device)
+        /// </summary>
         public ICommand UpdateDeviceCommand
         {
             get
