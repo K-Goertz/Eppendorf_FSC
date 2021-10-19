@@ -1,14 +1,14 @@
-#Full Stack Challenge
+# Full Stack Challenge
 
 Ein Backend mit CRUD Funktionalität erstellen.
 Daten Seed wird bereitgestellt. 
 Frontend für die Backendfunktionen erstellen. 
 
-###Zweck
+### Zweck
 Aufbauen einer sauberen, erweiterbaren Entwicklungsstrucktur.
 Eine zeitliche Begrenzung einhalten. 
 
-###Tech-Stack
+### Tech-Stack
 
 Alle Projekte verwenden .Net Core 3.1
 
@@ -23,7 +23,7 @@ Frontend
 - xunit
 - moq
 
-###Übersicht
+### Übersicht
 
 Projekte in diesem Repository:
 - DevicesModule: Devices ViewModel und View
@@ -32,35 +32,35 @@ Projekte in diesem Repository:
 - Eppendorf_FSC: Wpf Shell und DI
 - Core: Domain Objekte, MVVM base Klassen, Interfaces
 
-###Offene Punkte / Optimierungen
+### Offene Punkte / Optimierungen
 
-####DB-Repository
+#### DB-Repository
 Erstellen eines Repositories mit Datenbankanbindung auf Basis von Entity Framework. Die Konfiguration könnte in einer Config-Datei oder der Anwendung hinterlegt werden.
 
-####Multi-User Support
+#### Multi-User Support
 Die Anwendung kann von mehreren Benutzern zeitgleich verwendet werden.
 Das Frontend reagiert auf Änderungen im Repository automatisch. Für das File-Repository kann FileSystemWatcher verwendet werden. Für eine mögliche Datenbank Trigger oder Polling.
 
-####Tests
+#### Tests
 Tests sind etwas zu einfach gehalten und bilden nicht genügend Fälle ab. Aktuell wird nur das ViewModel getestet.
 
-####Entfernen einer Zeile mit Entf/Del-Taste
+#### Entfernen einer Zeile mit Entf/Del-Taste
 Aktuell werden Zeilen über einen Knopf entfernt.
 
-####Device Id
+#### Device Id
 Ids werden nicht neu vergeben und automatisch über das ViewModel gesetzt. Dies sollte noch einmal betrachtet/geklärt werden.
 
-####Fehlerbehandlung
+#### Fehlerbehandlung
 Fehlerbehandlung im Devices ViewModel/View.
 Fehlerbehandlung im File-Repository.
 
-####Commands erweitern
+#### Commands erweitern
 Die DeviceViewModel Commands sollten um CanExecute erweitert werden.
 
-####ViewModel und View Projekt aufteilen
+#### ViewModel und View Projekt aufteilen
 Ein Vorteil wäre, dass man die View einfacher austauschen kann und das ViewModel losgelöst existiert.
 
-###Bekannte Probleme
+### Bekannte Probleme
 
 Das verwendete File-Repository wird mit der ersten Benutzeraktion initialisiert. Dies blockiert die Anwendung manchmal. 
 **Aktueller Fix:** Einen Moment warten.
