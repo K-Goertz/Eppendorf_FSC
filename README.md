@@ -23,6 +23,9 @@ Frontend
 - xunit
 - moq
 
+Weitere
+- AutoMapper
+
 ### Übersicht
 
 Projekte in diesem Repository:
